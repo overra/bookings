@@ -1,0 +1,4 @@
+.vscode
+.env
+readme.md
+yarn.lock

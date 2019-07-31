@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "public": true,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "build" }
+    },
+    {
+      "src": "api/*.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/getBookings",
+      "dest": "/api/getBookings.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/api/createBooking",
+      "dest": "/api/createBooking.js",
+      "methods": ["POST"]
+    }
+  ],
+  "env": {
+    "MYSQL_HOST": "@bookings-mysql-host",
+    "MYSQL_NAME": "@bookings-mysql-name",
+    "MYSQL_USER": "@bookings-mysql-user",
+    "MYSQL_PASS": "@bookings-mysql-pass"
+  }
+}
