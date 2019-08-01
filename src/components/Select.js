@@ -89,24 +89,26 @@ function Select({
     let menuPositionStyle = {};
     if (buttonRef.current) {
       const rect = buttonRef.current.getClientRects()[0];
-      /* support ie11 */
-      const top = rect.top || rect.y;
-      const left = rect.left || rect.x;
+      if (rect) {
+        /* support ie11 */
+        const top = rect.top || rect.y;
+        const left = rect.left || rect.x;
 
-      /* set menu dimensions and position relative to the menu button */
-      menuPositionStyle = {
-        top: window.pageYOffset + top + rect.height,
-        left: left,
-        width: rect.width
-      };
-      /* position the menu above the menu button if positioning it below causes
-         the page height to increase */
-      if (
-        menuPositionStyle.top + menuRef.current.scrollHeight >
-        window.outerHeight
-      ) {
-        menuPositionStyle.top =
-          window.pageYOffset + top - menuRef.current.scrollHeight;
+        /* set menu dimensions and position relative to the menu button */
+        menuPositionStyle = {
+          top: window.pageYOffset + top + rect.height,
+          left: left,
+          width: rect.width
+        };
+        /* position the menu above the menu button if positioning it below causes
+           the page height to increase */
+        if (
+          menuPositionStyle.top + menuRef.current.scrollHeight >
+          window.outerHeight
+        ) {
+          menuPositionStyle.top =
+            window.pageYOffset + top - menuRef.current.scrollHeight;
+        }
       }
     }
     return (
