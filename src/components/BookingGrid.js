@@ -14,7 +14,7 @@ function BookingGrid({ bookings, loading }) {
         <TypeCol>Booking Type</TypeCol>
         <DateCol>Booking Date/Time</DateCol>
       </Row>
-      {!loading ? null : <Row>Loading booking records.</Row>}
+      {loading && !bookings ? <Row>Loading booking records.</Row> : null}
       {!bookings
         ? null
         : bookings.map(booking => (
