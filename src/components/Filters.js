@@ -15,7 +15,7 @@ function Filters({ initialValues, onSubmit }) {
             name="type"
             horizontalLabel
             onChange={() => setTimeout(handleSubmit, 0)}
-            style={{ width: 120 }}
+            style={{ width: 135 }}
             options={[
               { value: "", label: "All" },
               { value: "HOUSEKEEPING", label: "Housekeeping" },
