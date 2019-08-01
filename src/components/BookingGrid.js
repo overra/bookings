@@ -4,11 +4,20 @@ import formatDate from "date-fns/format";
 
 export default BookingGrid;
 
-function BookingGrid({ bookings }) {
-  if (!bookings) return null;
+function BookingGrid({ bookings, loading }) {
   return (
     <>
-      {bookings.map(booking => (
+      <Row header>
+        <NameCol>Customer</NameCol>
+        <EmailCol>Email</EmailCol>
+        <AddyCol>Address</AddyCol>
+        <TypeCol>Booking Type</TypeCol>
+        <DateCol>Booking Date/Time</DateCol>
+      </Row>
+      {!loading ? null : <Row>Loading booking records.</Row>}
+      {!bookings
+        ? null
+        : bookings.map(booking => (
         <Row key={booking.id}>
           <NameCol>{booking.name}</NameCol>
           <EmailCol>{booking.email}</EmailCol>

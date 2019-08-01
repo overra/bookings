@@ -41,62 +41,7 @@ function Bookings() {
           <Button onClick={handleOpenCreateBooking}>Create booking</Button>
         </HeaderControls>
       </Header>
-      <BookingGrid bookings={bookings} />
-      {/* <Table>
-        <thead>
-          <tr>
-            <TH>Customer</TH>
-            <TH>Email</TH>
-            <TH>Address</TH>
-            <TH>Booking Type</TH>
-            <TH align="right">Booking Date/Time</TH>
-          </tr>
-        </thead>
-        <tbody>
-          {loading && bookings === null ? (
-            <TR>
-              <TD colSpan="5">Loading booking records.</TD>
-            </TR>
-          ) : null}
-          {!bookings
-            ? null
-            : bookings.map(booking => (
-                <TR key={booking.id}>
-                  <TD>{booking.name}</TD>
-                  <TD>{booking.email}</TD>
-                  <TD>
-                    {booking.address}
-                    <br />
-                    {booking.city}, {booking.state}, {booking.zipcode}
-                  </TD>
-                  <TD>{BOOKING_TYPES[booking.type]}</TD>
-                  <TD align="right">
-                    {formatDate(booking.date, "MMMM D, YYYY [at] hh:mm a")}
-                  </TD>
-                </TR>
-              ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <TD colSpan="5">
-              <Pagination>
-                {!loading ? null : <Loading size={12} />}
-                <PaginationLimit onChange={handleLimitChange} limit={limit} />
-                <span>
-                  Displaying bookings {displayStart()} - {displayEnd()} of{" "}
-                  {total}
-                </span>
-                <Button onClick={handlePrevPage} disabled={!hasPrevPage()}>
-                  Prev
-                </Button>
-                <Button onClick={handleNextPage} disabled={!hasNextPage()}>
-                  Next
-                </Button>
-              </Pagination>
-            </TD>
-          </tr>
-        </tfoot>
-      </Table> */}
+      <BookingGrid loading={loading} bookings={bookings} />
       <Pagination>
         {!loading ? null : <Loading size={12} />}
         <PaginationLimit onChange={handleLimitChange} limit={limit} />
