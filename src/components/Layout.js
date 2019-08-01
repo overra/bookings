@@ -7,7 +7,7 @@ const Content = styled.div`
   margin: auto;
   padding: 10px;
   @media (min-width: 600px) {
-    width: 560px;
+    width: 90%;
   }
   @media (min-width: 960px) {
     width: 900px;
