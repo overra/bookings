@@ -237,7 +237,6 @@ const StyledSelect = styled.button`
   border: 1px #ccc solid;
   border-radius: 2px;
   cursor: pointer;
-  font-family: Helvetica, sans-serif;
   font-size: 12pt;
   text-align: left;
 `;
@@ -251,7 +250,6 @@ const Menu = styled.div`
   background-color: #fff;
   border: 1px #ccc solid;
   border-radius: 2px;
-  font-family: Helvetica, sans-serif;
   font-size: 12pt;
   ${props =>
     props.show

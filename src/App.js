@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #d8d8d8;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: Helvetica, sans-serif;
   }
   * {
     box-sizing: border-box;

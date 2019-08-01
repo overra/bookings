@@ -61,7 +61,6 @@ const StyledInput = styled.input`
   width: 100%;
   border: 1px ${props => (props.error ? "#a00" : "#ccc")} solid;
   border-radius: 2px;
-  font-family: Helvetica, sans-serif;
   font-size: 12pt;
   &[type="date"],
   &[type="time"] {

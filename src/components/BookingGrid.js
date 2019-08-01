@@ -44,7 +44,6 @@ const BOOKING_TYPES = {
 const Row = styled.div`
   display: ${props => (props.header ? `none` : `-ms-grid`)};
   display: ${props => (props.header ? `none` : `grid`)};
-  font-family: Helvetica, sans-serif;
   background-color: ${props => (props.header ? "transparent" : "#f5f5f5")};
   padding: 10px;
   &:not(:last-child) {
