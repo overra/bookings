@@ -69,7 +69,7 @@ function CreateBooking({ show, onClose, onSave }) {
                   label="Booking Type"
                   name="type"
                   options={[
-                    { value: "HOUSEKEEPING", label: "House Keeping" },
+                    { value: "HOUSEKEEPING", label: "Housekeeping" },
                     { value: "DOG_WALK", label: "Dog Walk" }
                   ]}
                 />
