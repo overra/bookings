@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import formatDate from "date-fns/format";
+import ErrorContainer from "./ErrorContainer";
 
 export default BookingGrid;
 
-function BookingGrid({ bookings, loading }) {
+function BookingGrid({ bookings, loading, error }) {
   return (
     <>
       <Row header>
@@ -14,7 +15,14 @@ function BookingGrid({ bookings, loading }) {
         <TypeCol>Booking Type</TypeCol>
         <DateCol>Booking Date/Time</DateCol>
       </Row>
-      {loading && !bookings ? <Row>Loading booking records.</Row> : null}
+      {error ? (
+        <BaseRow>
+          <ErrorContainer centered>{error}</ErrorContainer>
+        </BaseRow>
+      ) : null}
+      {loading && !bookings ? (
+        <BaseRow>Loading booking records.</BaseRow>
+      ) : null}
       {!bookings
         ? null
         : bookings.map(booking => (
@@ -41,11 +49,15 @@ const BOOKING_TYPES = {
   DOG_WALK: "Dog Walk"
 };
 
-const Row = styled.div`
-  display: ${props => (props.header ? `none` : `-ms-grid`)};
-  display: ${props => (props.header ? `none` : `grid`)};
+const BaseRow = styled.div`
   background-color: ${props => (props.header ? "transparent" : "#f5f5f5")};
   padding: 10px;
+  text-align: center;
+`;
+
+const Row = styled(BaseRow)`
+  display: ${props => (props.header ? `none` : `-ms-grid`)};
+  display: ${props => (props.header ? `none` : `grid`)};
   &:not(:last-child) {
     border-bottom: 1px #d8d8d8 solid;
   }
@@ -55,6 +67,7 @@ const Row = styled.div`
     "email email"
     "addy addy"
     "date date";
+  text-align: left;
 
   @media (min-width: 600px) {
     -ms-grid-columns: 1fr 1fr;

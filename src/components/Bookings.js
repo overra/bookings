@@ -13,13 +13,27 @@ export default Bookings;
 
 function Bookings() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
-  const { showModal, loading, bookings, page, limit, total, filters } = state;
+  const {
+    showModal,
+    loading,
+    bookings,
+    page,
+    limit,
+    total,
+    filters,
+    error
+  } = state;
 
   const updateBookings = React.useCallback(({ limit, page, filters }) => {
     dispatch({ type: LOADING });
-    getBookings({ limit, offset: page * limit, filters }).then(result =>
-      dispatch({ type: SET_BOOKINGS, payload: result })
-    );
+    getBookings({ limit, offset: page * limit, filters })
+      .then(result => dispatch({ type: SET_BOOKINGS, payload: result }))
+      .catch(() => {
+        dispatch({
+          type: ERROR,
+          payload: "An error occurred while retrieving booking records."
+        });
+      });
   }, []);
 
   /* update booking results any time the page number, limit or filters change */
@@ -46,7 +60,7 @@ function Bookings() {
           </Button>
         </HeaderControls>
       </Header>
-      <BookingGrid loading={loading} bookings={bookings} />
+      <BookingGrid loading={loading} error={error} bookings={bookings} />
       <Pagination>
         {!loading ? null : <Loading size={12} />}
         <PaginationLimit onChange={handleLimitChange} limit={limit} />
@@ -117,6 +131,7 @@ function Bookings() {
   }
 }
 
+const ERROR = "ERROR";
 const LOADING = "LOADING";
 const SET_BOOKINGS = "SET_BOOKINGS";
 const OPEN_MODAL = "OPEN_MODAL";
@@ -127,6 +142,7 @@ const SET_LIMIT = "SET_LIMIT";
 const SET_FILTERS = "SET_FILTERS";
 
 const initialState = {
+  error: null,
   loading: true,
   bookings: null,
   total: 0,
@@ -140,6 +156,13 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
+    case ERROR:
+      return {
+        ...state,
+        loading: false,
+        bookings: null,
+        error: action.payload
+      };
     case LOADING:
       return {
         ...state,

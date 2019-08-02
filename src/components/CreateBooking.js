@@ -8,11 +8,13 @@ import Input from "./Input";
 import Select from "./Select";
 import Title from "./Title";
 import Loading from "./Loading";
+import ErrorContainer from "./ErrorContainer";
 import { createBooking } from "../api";
 
 export default CreateBooking;
 
 function CreateBooking({ show, onClose, onSave }) {
+  const [error, setError] = React.useState(null);
   if (!show) return null;
 
   return (
@@ -87,6 +89,7 @@ function CreateBooking({ show, onClose, onSave }) {
                 />
               </Grid>
             </Grid>
+            {error ? <ErrorContainer centered>{error}</ErrorContainer> : null}
             <FormActions>
               {!isSubmitting ? null : <Loading />}
               <Button
@@ -103,7 +106,7 @@ function CreateBooking({ show, onClose, onSave }) {
     </Modal>
   );
 
-  function handleSubmit({ time, date, ...values }) {
+  function handleSubmit({ time, date, ...values }, { setSubmitting }) {
     const booking = {
       ...values,
       date: Math.floor(new Date(date + " " + time).getTime() / 1000)
@@ -115,7 +118,10 @@ function CreateBooking({ show, onClose, onSave }) {
         onClose();
       })
       .catch(err => {
-        console.error(err);
+        setSubmitting(false);
+        setError(
+          "An error occurred while attempting to create booking record."
+        );
       });
   }
 }

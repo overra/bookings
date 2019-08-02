@@ -5,4 +5,5 @@ export default styled.div`
   min-height: 20px;
   color: #a00;
   font-size: 12px;
+  text-align: ${props => (props.centered ? "center" : "left")};
 `;
