@@ -175,7 +175,7 @@ const AddyCol = styled(Col)`
   margin-bottom: 8px;
 
   @media (min-width: 600px) {
-    -ms-grid-row: 2;
+    -ms-grid-row: 3;
     -ms-grid-column: 1;
     -ms-grid-column-span: 1;
     margin-bottom: auto;
