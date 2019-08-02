@@ -88,7 +88,7 @@ it("closes create booking modal upon Escape keydown event", async () => {
 });
 
 it("should keep create booking submit disabled until input is valid", async () => {
-  const { debug, getByTestId, queryByTestId } = render(<App />);
+  const { getByTestId, queryByTestId } = render(<App />);
   await waitForDomChange();
   fireEvent.click(getByTestId("create-booking-button"));
   const form = getByTestId("create-booking-form");
@@ -126,8 +126,7 @@ it("should keep create booking submit disabled until input is valid", async () =
   /* select house keeping type */
   fireEvent.click(getByLabelText(form, "Booking Type"));
   fireEvent.click(queryByText(form, "Housekeeping"));
-  debug(form);
-  await waitForDomChange();
 
+  await waitForDomChange();
   expect(queryByTestId("create-booking-submit")).not.toBeDisabled();
 });
