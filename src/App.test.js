@@ -34,14 +34,9 @@ const rows = Array(40)
   .fill(0)
   .map((v, i) => ({ ...booking, id: i + 1 }));
 
-it("renders without crashing", async () => {
-  const {
-    debug,
-    getByTestId,
-    queryByTestId,
-    getByLabelText,
-    getByText
-  } = render(<App />);
+it("renders pagination result count and updates upon page change", async () => {
+  const { getByTestId } = render(<App />);
+
   /* check that the pagination text defaults to 0 - 0 of 0 */
   const displayingResults = getByTestId("displaying-results");
   expect(displayingResults).toHaveTextContent("Displaying bookings 0 - 0 of 0");
@@ -69,12 +64,22 @@ it("renders without crashing", async () => {
     "Displaying bookings 21 - 40 of 40"
   );
   expect(getByTestId("prev-button")).not.toBeDisabled();
+});
 
-  /* check that clicking the "Create Booking" button opens the modal */
+it("renders create booking modal", async () => {
+  const { getByTestId, queryByTestId, getByLabelText } = render(<App />);
+  await waitForDomChange();
   fireEvent.click(getByTestId("create-booking-button"));
   expect(queryByTestId("create-booking-form")).toBeInTheDocument();
+});
 
-  /* check that the "Create booking" form button is disabled */
+it("closes create booking modal upon Escape keydown event", async () => {
+  const { getByTestId, queryByTestId, getByLabelText } = render(<App />);
+  await waitForDomChange();
+  fireEvent.click(getByTestId("create-booking-button"));
+  fireEvent.keyDown(getByLabelText("Name"), { key: "Escape" });
+  expect(queryByTestId("create-booking-form")).not.toBeInTheDocument();
+});
   expect(queryByTestId("create-booking-submit")).toBeDisabled();
 
   /* check that pressing Escape closes the create booking modal */
