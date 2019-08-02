@@ -9,6 +9,7 @@ function PaginationLimit({ onChange, limit }) {
     <Formik name="limit-form" initialValues={{ limit }} onSubmit={onChange}>
       {({ submitForm }) => (
         <Select
+          id="select-limit"
           name="limit"
           label="Results"
           horizontalLabel

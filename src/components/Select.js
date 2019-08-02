@@ -9,6 +9,7 @@ import usePrevious from "../hooks/usePrevious";
 export default Select;
 
 function Select({
+  id,
   name,
   label,
   options = [],
@@ -73,7 +74,7 @@ function Select({
 
   return (
     <FieldWrapper ref={selectWrapperRef} {...{ gutterBottom, horizontalLabel }}>
-      <FieldLabel htmlFor={name}>{label}</FieldLabel>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <Field name={name} render={renderSelect} />
       <ErrorContainer>
         <ErrorMessage name={name} />
@@ -115,6 +116,7 @@ function Select({
       <>
         <StyledSelect
           ref={buttonRef}
+          id={id}
           type="button"
           aria-haspopup="menu"
           aria-expanded={showMenu}

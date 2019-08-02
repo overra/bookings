@@ -11,6 +11,7 @@ function Filters({ initialValues, onSubmit }) {
       {({ handleSubmit }) => (
         <FilterForm onSubmit={handleSubmit}>
           <Select
+            id="filter-booking-type"
             label="Booking Type"
             name="type"
             horizontalLabel

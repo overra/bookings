@@ -8,8 +8,9 @@ import ErrorContainer from "./ErrorContainer";
 export default Input;
 
 function Input({
-  label,
+  id,
   name,
+  label,
   autoFocus,
   onChange,
   gutterBottom,
@@ -26,7 +27,7 @@ function Input({
 
   return (
     <FieldWrapper {...{ gutterBottom, horizontalLabel }}>
-      <FieldLabel htmlFor={name}>{label}</FieldLabel>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <Field
         name={name}
         render={({ field, form }) => {
@@ -39,7 +40,7 @@ function Input({
           return (
             <StyledInput
               ref={fieldRef}
-              id={name}
+              id={id}
               {...field}
               {...props}
               onChange={handleChange}

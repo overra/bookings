@@ -28,21 +28,44 @@ function CreateBooking({ show, onClose, onSave }) {
             <Title gutterBottom>Create booking</Title>
             <Grid container>
               <Grid item size={6}>
-                <Input label="Name" name="name" autoFocus />
-                <Input label="Email" name="email" type="email" />
-                <Input label="Street Address" name="address" />
-                <Input label="City" name="city" />
+                <Input
+                  id="create-booking-name"
+                  label="Name"
+                  name="name"
+                  autoFocus
+                />
+                <Input
+                  id="create-booking-email"
+                  label="Email"
+                  name="email"
+                  type="email"
+                />
+                <Input
+                  id="create-booking-address"
+                  label="Street Address"
+                  name="address"
+                />
+                <Input id="create-booking-city" label="City" name="city" />
                 <Grid container>
                   <Grid item size={6}>
-                    <Input label="State" name="state" />
+                    <Input
+                      id="create-booking-state"
+                      label="State"
+                      name="state"
+                    />
                   </Grid>
                   <Grid item size={6}>
-                    <Input label="Zip code" name="zipcode" />
+                    <Input
+                      id="create-booking-zipcode"
+                      label="Zip code"
+                      name="zipcode"
+                    />
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item size={6}>
                 <Select
+                  id="create-booking-type"
                   label="Booking Type"
                   name="type"
                   options={[
@@ -50,8 +73,18 @@ function CreateBooking({ show, onClose, onSave }) {
                     { value: "DOG_WALK", label: "Dog Walk" }
                   ]}
                 />
-                <Input label="Booking Date" name="date" type="date" />
-                <Input label="Booking Time" name="time" type="time" />
+                <Input
+                  id="create-booking-date"
+                  label="Booking Date"
+                  name="date"
+                  type="date"
+                />
+                <Input
+                  id="create-booking-time"
+                  label="Booking Time"
+                  name="time"
+                  type="time"
+                />
               </Grid>
             </Grid>
             <FormActions>
