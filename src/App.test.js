@@ -1,7 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { render, waitForDomChange, fireEvent } from "@testing-library/react";
+import {
+  render,
+  waitForDomChange,
+  fireEvent,
+  getByLabelText,
+  queryByText
+} from "@testing-library/react";
 import { parse } from "querystring";
 
 /* mock window functions */
@@ -80,9 +86,48 @@ it("closes create booking modal upon Escape keydown event", async () => {
   fireEvent.keyDown(getByLabelText("Name"), { key: "Escape" });
   expect(queryByTestId("create-booking-form")).not.toBeInTheDocument();
 });
+
+it("should keep create booking submit disabled until input is valid", async () => {
+  const { debug, getByTestId, queryByTestId } = render(<App />);
+  await waitForDomChange();
+  fireEvent.click(getByTestId("create-booking-button"));
+  const form = getByTestId("create-booking-form");
+  function updateInput(label, value) {
+    const field = getByLabelText(form, label);
+    fireEvent.focus(field);
+    fireEvent.change(field, {
+      target: { value }
+    });
+    fireEvent.blur(field);
+  }
   expect(queryByTestId("create-booking-submit")).toBeDisabled();
 
-  /* check that pressing Escape closes the create booking modal */
-  fireEvent.keyDown(getByLabelText("Name"), { key: "Escape" });
-  expect(queryByTestId("create-booking-form")).not.toBeInTheDocument();
+  const nameInput = getByLabelText(form, "Name");
+  fireEvent.focus(nameInput);
+  fireEvent.blur(nameInput);
+  await waitForDomChange();
+  expect(queryByText(form, "Required")).toBeInTheDocument();
+
+  fireEvent.change(getByLabelText(form, "Name"), {
+    target: { value: "Jon Stewart" }
+  });
+  fireEvent.focus(nameInput);
+  fireEvent.blur(nameInput);
+  await waitForDomChange();
+
+  updateInput("Name", "Jon Stewart");
+  updateInput("Email", "jon@daily.show");
+  updateInput("Street Address", "5323 Lavender Loop");
+  updateInput("City", "Austin");
+  updateInput("State", "TX");
+  updateInput("Zip code", "78702");
+  updateInput("Booking Date", "2019-06-05");
+  updateInput("Booking Time", "08:00");
+  /* select house keeping type */
+  fireEvent.click(getByLabelText(form, "Booking Type"));
+  fireEvent.click(queryByText(form, "Housekeeping"));
+  debug(form);
+  await waitForDomChange();
+
+  expect(queryByTestId("create-booking-submit")).not.toBeDisabled();
 });
