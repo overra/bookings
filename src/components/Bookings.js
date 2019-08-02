@@ -78,6 +78,7 @@ function Bookings() {
   );
 
   function handleLimitChange({ limit }) {
+    localStorage.setItem("displayLimit", limit);
     dispatch({ type: SET_LIMIT, payload: limit });
   }
 
@@ -130,7 +131,7 @@ const initialState = {
   bookings: null,
   total: 0,
   page: 0,
-  limit: 20,
+  limit: +localStorage.getItem("displayLimit") || 20,
   showModal: false,
   filters: {
     type: ""
