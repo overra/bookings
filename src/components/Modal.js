@@ -9,8 +9,10 @@ function Modal({ children, onClose }) {
 
   /* disable page scrolling while modal is open */
   React.useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
     return () => {
+      window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "auto";
     };
   }, []);
@@ -29,7 +31,7 @@ function Modal({ children, onClose }) {
   }
 
   return createPortal(
-    <Backdrop ref={backdropRef} onClick={handleClose} onKeyDown={handleKeyDown}>
+    <Backdrop ref={backdropRef} onClick={handleClose}>
       <ModalContainer>{children}</ModalContainer>
     </Backdrop>,
     document.body
