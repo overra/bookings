@@ -9,8 +9,7 @@ This project uses [create-react-app][cra] for the client framework and
 
 To setup a fresh database use the following command, with your actual host
 address, username and database name. You will then be prompted to enter your
-password. Once that's complete you will have an empty `booking` table ready to
-use!
+password. Once that's complete you will have a `booking` table seeded with data.
 
 ```
 mysql -h [host address] -u [username] -D [database name] -p < ./api/booking.sql
