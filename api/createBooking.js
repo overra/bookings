@@ -3,15 +3,15 @@ const { query } = require("./db");
 const { BOOKING_TYPES, MalformedInputError } = require("./common");
 
 module.exports = async (req, res) => {
-  const booking = await json(req);
   try {
+    const booking = await json(req);
     await createBooking(booking);
     send(res, 200);
   } catch (err) {
     if (err.name === "MalformedInput") {
       return send(res, 400, err.message);
     }
-    console.error(err);
+    /* report to error logging service instead of console.error(err); */
     send(res, 500, "An error occurred while creating the booking record.");
   }
 };
@@ -62,13 +62,13 @@ function createBooking({
 
 function validateInput(input) {
   const falseyInputValues = Object.entries(input)
-    .filter(([, value]) => !value)
+    .filter(([, value]) => value === "" || value === void 0 || value === null)
     .map(([key]) => key);
 
   if (falseyInputValues.length > 0) {
-    throw new MalformedInputError(`
-    The following inputs must be defined:\n\n${falseyInputValues.join("\n")}
-  `);
+    throw new MalformedInputError(
+      `The following inputs must be defined:\n\n${falseyInputValues.join("\n")}`
+    );
   }
   if (!BOOKING_TYPES.includes(input.type)) {
     throw new MalformedInputError(

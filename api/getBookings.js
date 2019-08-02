@@ -5,7 +5,7 @@ const { BOOKING_TYPES, MalformedInputError } = require("./common");
 module.exports = async (req, res) => {
   try {
     const bookings = await getBookings(req.query);
-    res.send(bookings);
+    send(res, 200, bookings);
   } catch (err) {
     if (err.name === "MalformedInput") {
       return send(res, 400, err.message);
@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
 
 async function getBookings({ offset = 0, limit = 20, type = "" }) {
   let input = {
-    // cast string inputs to number
+    /* cast string inputs to number */
     limit: +limit,
     offset: +offset
   };
@@ -29,6 +29,7 @@ async function getBookings({ offset = 0, limit = 20, type = "" }) {
   validateInput(input);
 
   const condition = input.type ? "WHERE type = :type" : "";
+  /* get total rows matching condition */
   const [total] = await query(
     `SELECT COUNT(*) FROM booking ${condition}`,
     input
