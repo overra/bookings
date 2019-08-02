@@ -24,7 +24,7 @@ function CreateBooking({ show, onClose, onSave }) {
         onSubmit={handleSubmit}
       >
         {({ handleSubmit, isSubmitting, isValid }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} data-testid="create-booking-form">
             <Title gutterBottom>Create booking</Title>
             <Grid container>
               <Grid item size={6}>
@@ -89,7 +89,11 @@ function CreateBooking({ show, onClose, onSave }) {
             </Grid>
             <FormActions>
               {!isSubmitting ? null : <Loading />}
-              <Button type="submit" disabled={isSubmitting || !isValid}>
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isValid}
+                data-testid="create-booking-submit"
+              >
                 Create booking
               </Button>
             </FormActions>

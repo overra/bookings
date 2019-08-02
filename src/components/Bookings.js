@@ -38,20 +38,33 @@ function Bookings() {
         <Title>Bookings {!loading ? null : <Loading />}</Title>
         <HeaderControls>
           <Filters initialValues={filters} onSubmit={handleChangeFilters} />
-          <Button onClick={handleOpenCreateBooking}>Create booking</Button>
+          <Button
+            onClick={handleOpenCreateBooking}
+            data-testid="create-booking-button"
+          >
+            Create booking
+          </Button>
         </HeaderControls>
       </Header>
       <BookingGrid loading={loading} bookings={bookings} />
       <Pagination>
         {!loading ? null : <Loading size={12} />}
         <PaginationLimit onChange={handleLimitChange} limit={limit} />
-        <span>
+        <span data-testid="displaying-results">
           Displaying bookings {displayStart()} - {displayEnd()} of {total}
         </span>
-        <Button onClick={handlePrevPage} disabled={!hasPrevPage()}>
+        <Button
+          onClick={handlePrevPage}
+          disabled={!hasPrevPage()}
+          data-testid="prev-button"
+        >
           Prev
         </Button>
-        <Button onClick={handleNextPage} disabled={!hasNextPage()}>
+        <Button
+          onClick={handleNextPage}
+          disabled={!hasNextPage()}
+          data-testid="next-button"
+        >
           Next
         </Button>
       </Pagination>
