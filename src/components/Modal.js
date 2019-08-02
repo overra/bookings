@@ -7,6 +7,16 @@ export default Modal;
 function Modal({ children, onClose }) {
   const backdropRef = React.useRef();
 
+  const handleKeyDown = React.useCallback(
+    function handleKeyDown(event) {
+      if (event.key === "Escape" || event.key === "Esc") {
+        event.preventDefault();
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
   /* disable page scrolling while modal is open */
   React.useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -15,17 +25,10 @@ function Modal({ children, onClose }) {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "auto";
     };
-  }, []);
+  }, [handleKeyDown]);
 
   function handleClose(event) {
     if (event.target === backdropRef.current) {
-      onClose();
-    }
-  }
-
-  function handleKeyDown(event) {
-    if (event.key === "Escape" || event.key === "Esc") {
-      event.preventDefault();
       onClose();
     }
   }
